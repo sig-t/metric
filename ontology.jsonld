@@ -1,0 +1,51 @@
+{
+  "@context": {
+    "dvcs": "https://gitlab.presov.sk/vocab/dvcs/-/raw/main/context.jsonld#",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@graph": [
+    {
+      "@id": "dvcs:MetricContext",
+      "@type": "rdfs:Class",
+      "rdfs:label": {
+        "sk": "Kontext metriky",
+        "en": "Metric context"
+      },
+      "rdfs:comment": {
+        "sk": "Typ reprezentujúci sémantický opis jednej Sparkplug metriky.",
+        "en": "A type representing the semantic description of a single Sparkplug metric."
+      }
+    },
+    {
+      "@id": "dvcs:sparkplugDataType",
+      "@type": "rdf:Property",
+      "rdfs:label": {
+        "sk": "Dátový typ metriky Sparkplug",
+        "en": "Sparkplug metric datatype"
+      },
+      "rdfs:domain": "dvcs:MetricContext",
+      "rdfs:range": "xsd:string",
+      "rdfs:comment": {
+        "sk": "Dátový typ hodnoty metriky podľa špecifikácie Sparkplug 3.0 (napr. Float64, Boolean, String).",
+        "en": "Datatype of the metric value as per Sparkplug 3.0 (e.g. Float64, Boolean, String)."
+      }
+    },
+    {
+      "@id": "dvcs:isDefinedBySparkplug",
+      "@type": "rdf:Property",
+      "rdfs:label": {
+        "sk": "Definované v Sparkplug",
+        "en": "Defined in Sparkplug"
+      },
+      "rdfs:domain": "dvcs:MetricContext",
+      "rdfs:range": "xsd:anyURI",
+      "rdfs:comment": {
+        "sk": "Odkaz na špecifikáciu Sparkplug, ktorá definuje túto metriku alebo atribút.",
+        "en": "Reference to the Sparkplug specification defining this metric or property."
+      },
+      "rdfs:seeAlso": "https://sparkplug.eclipse.org/specification/version/3.0/documents/sparkplug-specification-3.0.0.pdf"
+    }
+  ]
+}
