@@ -1,0 +1,41 @@
+{
+  "@context": [
+    "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld",
+    {
+      "schema": "https://schema.org/",
+      "dvcs": "https://gitlab.presov.sk/vocab/dvcs/-/raw/main/context.jsonld#"
+    }
+  ],
+  "id": "urn:ngsi-ld:SparkplugDevice:PLC01",
+  "type": "SparkplugDevice",
+  "name": {
+    "type": "Property",
+    "value": "PLC Siemens S7-1200"
+  },
+  "deviceId": {
+    "type": "Property",
+    "value": "PLC01"
+  },
+  "description": {
+    "type": "Property",
+    "value": "Programovateľný logický automat pre riadenie výrobnej linky 1"
+  },
+  "status": {
+    "type": "Property",
+    "value": "online",
+    "observedAt": "2025-10-20T14:30:00Z"
+  },
+  "hasMetric": {
+    "type": "Relationship",
+    "object": [
+      "urn:ngsi-ld:SparkplugMetric:Temperature:PLC01",
+      "urn:ngsi-ld:SparkplugMetric:Pressure:PLC01",
+      "urn:ngsi-ld:SparkplugMetric:ProductionCounter:PLC01",
+      "urn:ngsi-ld:SparkplugMetric:ErrorCount:PLC01"
+    ]
+  },
+  "belongsToNode": {
+    "type": "Relationship",
+    "object": "urn:ngsi-ld:SparkplugNode:EdgeGateway01"
+  }
+}

@@ -5,30 +5,83 @@
     "unit": "http://qudt.org/vocab/unit/",
     "quantitykind": "http://qudt.org/vocab/quantitykind/",
     "dvcs": "https://gitlab.presov.sk/vocab/dvcs/-/raw/main/context.jsonld#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "SparkplugMetric": "dvcs:SparkplugMetric",
+    "SparkplugDevice": "dvcs:SparkplugDevice",
+    "SparkplugNode": "dvcs:SparkplugNode",
 
     "name": {
       "@id": "schema:name",
-      "@type": "schema:Text"
+      "@type": "xsd:string"
     },
     "value": {
       "@id": "qudt:numericValue",
-      "@type": "schema:Number"
+      "@type": "xsd:decimal"
     },
     "dataType": {
       "@id": "dvcs:sparkplugDataType",
-      "@type": "schema:Text"
+      "@type": "xsd:string"
     },
     "unitCode": {
       "@id": "qudt:unit",
       "@type": "@id"
     },
     "quantityKind": {
-      "@id": "qudt:QuantityKind",
+      "@id": "qudt:hasQuantityKind",
       "@type": "@id"
     },
     "description": {
       "@id": "schema:description",
-      "@type": "schema:Text"
+      "@type": "xsd:string"
+    },
+    "timestamp": {
+      "@id": "schema:dateModified",
+      "@type": "xsd:dateTime"
+    },
+    "quality": {
+      "@id": "dvcs:quality",
+      "@type": "xsd:string"
+    },
+    "isHistorical": {
+      "@id": "dvcs:isHistorical",
+      "@type": "xsd:boolean"
+    },
+    "alias": {
+      "@id": "dvcs:alias",
+      "@type": "xsd:integer"
+    },
+    "belongsToDevice": {
+      "@id": "dvcs:belongsToDevice",
+      "@type": "@id"
+    },
+    "hasMetric": {
+      "@id": "dvcs:hasMetric",
+      "@type": "@id"
+    },
+    "belongsToNode": {
+      "@id": "dvcs:belongsToNode",
+      "@type": "@id"
+    },
+    "hasDevice": {
+      "@id": "dvcs:hasDevice",
+      "@type": "@id"
+    },
+    "deviceId": {
+      "@id": "schema:identifier",
+      "@type": "xsd:string"
+    },
+    "nodeId": {
+      "@id": "dvcs:nodeId",
+      "@type": "xsd:string"
+    },
+    "groupId": {
+      "@id": "dvcs:groupId",
+      "@type": "xsd:string"
+    },
+    "status": {
+      "@id": "dvcs:status",
+      "@type": "xsd:string"
     }
   }
 }

@@ -1,0 +1,258 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://gitlab.presov.sk/vocab/dvcs/metric/-/raw/main/schemas/json-schema/sparkplug-metric.schema.json",
+  "title": "SparkplugMetric",
+  "description": "JSON Schema pre validáciu Sparkplug 3.0 metriky v NGSI-LD formáte",
+  "type": "object",
+  "required": ["id", "type", "name", "value", "dataType"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^urn:ngsi-ld:SparkplugMetric:[A-Za-z0-9_-]+$",
+      "description": "Jedinečný identifikátor metriky v NGSI-LD URI formáte",
+      "examples": [
+        "urn:ngsi-ld:SparkplugMetric:Temperature:Sensor01"
+      ]
+    },
+    "type": {
+      "type": "string",
+      "const": "SparkplugMetric",
+      "description": "Typ entity"
+    },
+    "@context": {
+      "description": "JSON-LD kontext",
+      "oneOf": [
+        {
+          "type": "string",
+          "format": "uri"
+        },
+        {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {"type": "string", "format": "uri"},
+              {"type": "object"}
+            ]
+          }
+        },
+        {
+          "type": "object"
+        }
+      ]
+    },
+    "name": {
+      "type": "object",
+      "required": ["type", "value"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "Property"
+        },
+        "value": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256,
+          "description": "Názov metriky (napr. 'Temperature', 'Pressure')"
+        },
+        "observedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "value": {
+      "type": "object",
+      "required": ["type", "value"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "Property"
+        },
+        "value": {
+          "type": "number",
+          "description": "Numerická hodnota metriky"
+        },
+        "observedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "unitCode": {
+          "type": "string",
+          "description": "Jednotka merania (QUDT URI alebo kód)"
+        }
+      }
+    },
+    "dataType": {
+      "type": "object",
+      "required": ["type", "value"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "Property"
+        },
+        "value": {
+          "type": "string",
+          "enum": [
+            "Float",
+            "Double",
+            "Int8",
+            "Int16",
+            "Int32",
+            "Int64",
+            "UInt8",
+            "UInt16",
+            "UInt32",
+            "UInt64",
+            "Boolean",
+            "String",
+            "DateTime",
+            "Text"
+          ],
+          "description": "Sparkplug dátový typ"
+        }
+      }
+    },
+    "unitCode": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "Property"
+        },
+        "value": {
+          "type": "string",
+          "format": "uri",
+          "description": "QUDT jednotka (napr. http://qudt.org/vocab/unit/DEG_C)"
+        }
+      }
+    },
+    "quantityKind": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "Property"
+        },
+        "value": {
+          "type": "string",
+          "format": "uri",
+          "description": "QUDT druh veličiny"
+        }
+      }
+    },
+    "timestamp": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "Property"
+        },
+        "value": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 časová značka"
+        }
+      }
+    },
+    "quality": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "Property"
+        },
+        "value": {
+          "type": "string",
+          "enum": ["good", "bad", "uncertain"],
+          "description": "Kvalita merania"
+        }
+      }
+    },
+    "isHistorical": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "Property"
+        },
+        "value": {
+          "type": "boolean",
+          "description": "Príznak historických dát"
+        }
+      }
+    },
+    "alias": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "Property"
+        },
+        "value": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Sparkplug alias (číselný identifikátor)"
+        }
+      }
+    },
+    "description": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "Property"
+        },
+        "value": {
+          "type": "string",
+          "maxLength": 1000,
+          "description": "Popis metriky"
+        }
+      }
+    },
+    "belongsToDevice": {
+      "type": "object",
+      "required": ["type", "object"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "Relationship"
+        },
+        "object": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^urn:ngsi-ld:SparkplugDevice:[A-Za-z0-9_-]+$",
+          "description": "URI zariadenia"
+        }
+      }
+    }
+  },
+  "additionalProperties": true,
+  "examples": [
+    {
+      "id": "urn:ngsi-ld:SparkplugMetric:Temperature:Sensor01",
+      "type": "SparkplugMetric",
+      "name": {
+        "type": "Property",
+        "value": "Temperature"
+      },
+      "value": {
+        "type": "Property",
+        "value": 23.5,
+        "observedAt": "2025-10-20T14:30:00Z"
+      },
+      "dataType": {
+        "type": "Property",
+        "value": "Float"
+      },
+      "unitCode": {
+        "type": "Property",
+        "value": "http://qudt.org/vocab/unit/DEG_C"
+      },
+      "quality": {
+        "type": "Property",
+        "value": "good"
+      }
+    }
+  ]
+}

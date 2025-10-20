@@ -7,6 +7,42 @@
   },
   "@graph": [
     {
+      "@id": "dvcs:SparkplugMetric",
+      "@type": "rdfs:Class",
+      "rdfs:label": {
+        "sk": "Sparkplug Metrika",
+        "en": "Sparkplug Metric"
+      },
+      "rdfs:comment": {
+        "sk": "NGSI-LD entita reprezentujúca jednu telemetrickú metriku podľa Sparkplug 3.0 špecifikácie.",
+        "en": "NGSI-LD entity representing a single telemetric metric according to Sparkplug 3.0 specification."
+      }
+    },
+    {
+      "@id": "dvcs:SparkplugDevice",
+      "@type": "rdfs:Class",
+      "rdfs:label": {
+        "sk": "Sparkplug Zariadenie",
+        "en": "Sparkplug Device"
+      },
+      "rdfs:comment": {
+        "sk": "Sparkplug zariadenie (Device), ktoré obsahuje kolekciu metrík.",
+        "en": "Sparkplug Device that contains a collection of metrics."
+      }
+    },
+    {
+      "@id": "dvcs:SparkplugNode",
+      "@type": "rdfs:Class",
+      "rdfs:label": {
+        "sk": "Sparkplug Uzol",
+        "en": "Sparkplug Node"
+      },
+      "rdfs:comment": {
+        "sk": "Sparkplug Edge Node, ktorý agreguje jedno alebo viac zariadení.",
+        "en": "Sparkplug Edge Node that aggregates one or more devices."
+      }
+    },
+    {
       "@id": "dvcs:MetricContext",
       "@type": "rdfs:Class",
       "rdfs:label": {
@@ -14,9 +50,10 @@
         "en": "Metric context"
       },
       "rdfs:comment": {
-        "sk": "Typ reprezentujúci sémantický opis jednej Sparkplug metriky.",
-        "en": "A type representing the semantic description of a single Sparkplug metric."
-      }
+        "sk": "Typ reprezentujúci sémantický opis jednej Sparkplug metriky (zastaralé, použite dvcs:SparkplugMetric).",
+        "en": "A type representing the semantic description of a single Sparkplug metric (deprecated, use dvcs:SparkplugMetric)."
+      },
+      "rdfs:subClassOf": "dvcs:SparkplugMetric"
     },
     {
       "@id": "dvcs:sparkplugDataType",
@@ -25,11 +62,154 @@
         "sk": "Dátový typ metriky Sparkplug",
         "en": "Sparkplug metric datatype"
       },
-      "rdfs:domain": "dvcs:MetricContext",
+      "rdfs:domain": "dvcs:SparkplugMetric",
       "rdfs:range": "xsd:string",
       "rdfs:comment": {
-        "sk": "Dátový typ hodnoty metriky podľa špecifikácie Sparkplug 3.0 (napr. Float64, Boolean, String).",
-        "en": "Datatype of the metric value as per Sparkplug 3.0 (e.g. Float64, Boolean, String)."
+        "sk": "Dátový typ hodnoty metriky podľa špecifikácie Sparkplug 3.0 (napr. Float, Double, Int32, Boolean, String).",
+        "en": "Datatype of the metric value as per Sparkplug 3.0 (e.g. Float, Double, Int32, Boolean, String)."
+      }
+    },
+    {
+      "@id": "dvcs:quality",
+      "@type": "rdf:Property",
+      "rdfs:label": {
+        "sk": "Kvalita dát",
+        "en": "Data quality"
+      },
+      "rdfs:domain": "dvcs:SparkplugMetric",
+      "rdfs:range": "xsd:string",
+      "rdfs:comment": {
+        "sk": "Kvalita merania (good, bad, uncertain).",
+        "en": "Quality of measurement (good, bad, uncertain)."
+      }
+    },
+    {
+      "@id": "dvcs:isHistorical",
+      "@type": "rdf:Property",
+      "rdfs:label": {
+        "sk": "Je historické",
+        "en": "Is historical"
+      },
+      "rdfs:domain": "dvcs:SparkplugMetric",
+      "rdfs:range": "xsd:boolean",
+      "rdfs:comment": {
+        "sk": "Príznak, či ide o historické dáta.",
+        "en": "Flag indicating if this is historical data."
+      }
+    },
+    {
+      "@id": "dvcs:alias",
+      "@type": "rdf:Property",
+      "rdfs:label": {
+        "sk": "Alias",
+        "en": "Alias"
+      },
+      "rdfs:domain": "dvcs:SparkplugMetric",
+      "rdfs:range": "xsd:integer",
+      "rdfs:comment": {
+        "sk": "Sparkplug číselný alias metriky pre kompaktnú reprezentáciu.",
+        "en": "Sparkplug numeric alias of the metric for compact representation."
+      }
+    },
+    {
+      "@id": "dvcs:belongsToDevice",
+      "@type": "rdf:Property",
+      "rdfs:label": {
+        "sk": "Patrí zariadeniu",
+        "en": "Belongs to device"
+      },
+      "rdfs:domain": "dvcs:SparkplugMetric",
+      "rdfs:range": "dvcs:SparkplugDevice",
+      "rdfs:comment": {
+        "sk": "Vzťah k zariadeniu, ktorému metrika patrí.",
+        "en": "Relationship to the device this metric belongs to."
+      }
+    },
+    {
+      "@id": "dvcs:hasMetric",
+      "@type": "rdf:Property",
+      "rdfs:label": {
+        "sk": "Má metriku",
+        "en": "Has metric"
+      },
+      "rdfs:domain": "dvcs:SparkplugDevice",
+      "rdfs:range": "dvcs:SparkplugMetric",
+      "rdfs:comment": {
+        "sk": "Zariadenie obsahuje túto metriku.",
+        "en": "Device contains this metric."
+      }
+    },
+    {
+      "@id": "dvcs:belongsToNode",
+      "@type": "rdf:Property",
+      "rdfs:label": {
+        "sk": "Patrí uzlu",
+        "en": "Belongs to node"
+      },
+      "rdfs:domain": "dvcs:SparkplugDevice",
+      "rdfs:range": "dvcs:SparkplugNode",
+      "rdfs:comment": {
+        "sk": "Zariadenie patrí tomuto uzlu (Edge Node).",
+        "en": "Device belongs to this node (Edge Node)."
+      }
+    },
+    {
+      "@id": "dvcs:hasDevice",
+      "@type": "rdf:Property",
+      "rdfs:label": {
+        "sk": "Má zariadenie",
+        "en": "Has device"
+      },
+      "rdfs:domain": "dvcs:SparkplugNode",
+      "rdfs:range": "dvcs:SparkplugDevice",
+      "rdfs:comment": {
+        "sk": "Uzol obsahuje toto zariadenie.",
+        "en": "Node contains this device."
+      }
+    },
+    {
+      "@id": "dvcs:nodeId",
+      "@type": "rdf:Property",
+      "rdfs:label": {
+        "sk": "ID uzla",
+        "en": "Node ID"
+      },
+      "rdfs:domain": "dvcs:SparkplugNode",
+      "rdfs:range": "xsd:string",
+      "rdfs:comment": {
+        "sk": "Sparkplug Node ID v rámci topológie.",
+        "en": "Sparkplug Node ID within topology."
+      }
+    },
+    {
+      "@id": "dvcs:groupId",
+      "@type": "rdf:Property",
+      "rdfs:label": {
+        "sk": "Group ID",
+        "en": "Group ID"
+      },
+      "rdfs:domain": "dvcs:SparkplugNode",
+      "rdfs:range": "xsd:string",
+      "rdfs:comment": {
+        "sk": "Sparkplug Group ID v namespace.",
+        "en": "Sparkplug Group ID in namespace."
+      }
+    },
+    {
+      "@id": "dvcs:status",
+      "@type": "rdf:Property",
+      "rdfs:label": {
+        "sk": "Stav",
+        "en": "Status"
+      },
+      "rdfs:domain": {
+        "@type": "rdfs:Class",
+        "rdfs:unionOf": ["dvcs:SparkplugDevice", "dvcs:SparkplugNode"]
+      },
+      "rdfs:range": "xsd:string",
+      "rdfs:comment": {
+        "sk": "Stav zariadenia alebo uzla (online, offline, error).",
+        "en": "Status of device or node (online, offline, error)."
       }
     },
     {
@@ -39,7 +219,7 @@
         "sk": "Definované v Sparkplug",
         "en": "Defined in Sparkplug"
       },
-      "rdfs:domain": "dvcs:MetricContext",
+      "rdfs:domain": "dvcs:SparkplugMetric",
       "rdfs:range": "xsd:anyURI",
       "rdfs:comment": {
         "sk": "Odkaz na špecifikáciu Sparkplug, ktorá definuje túto metriku alebo atribút.",

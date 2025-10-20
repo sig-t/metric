@@ -1,0 +1,254 @@
+{
+  "@context": [
+    "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld",
+    "https://gitlab.presov.sk/vocab/dvcs/metric/-/raw/main/metric-context.jsonld"
+  ],
+  "@graph": [
+    {
+      "id": "urn:ngsi-ld:SparkplugNode:Factory1-EdgeGateway01",
+      "type": "SparkplugNode",
+      "name": {
+        "type": "Property",
+        "value": "Edge Gateway - Výrobná hala A"
+      },
+      "nodeId": {
+        "type": "Property",
+        "value": "EdgeGateway01"
+      },
+      "groupId": {
+        "type": "Property",
+        "value": "Factory1"
+      },
+      "description": {
+        "type": "Property",
+        "value": "Hlavný edge gateway pre zber dát z PLC v hale A"
+      },
+      "status": {
+        "type": "Property",
+        "value": "online",
+        "observedAt": "2025-10-20T14:30:00Z"
+      },
+      "hasDevice": {
+        "type": "Relationship",
+        "object": [
+          "urn:ngsi-ld:SparkplugDevice:PLC01",
+          "urn:ngsi-ld:SparkplugDevice:PLC02"
+        ]
+      }
+    },
+    {
+      "id": "urn:ngsi-ld:SparkplugDevice:PLC01",
+      "type": "SparkplugDevice",
+      "name": {
+        "type": "Property",
+        "value": "PLC Siemens S7-1200 - Linka 1"
+      },
+      "deviceId": {
+        "type": "Property",
+        "value": "PLC01"
+      },
+      "description": {
+        "type": "Property",
+        "value": "Riadenie výrobnej linky 1 - montáž komponentov"
+      },
+      "status": {
+        "type": "Property",
+        "value": "online"
+      },
+      "hasMetric": {
+        "type": "Relationship",
+        "object": [
+          "urn:ngsi-ld:SparkplugMetric:Temp-PLC01-CPU",
+          "urn:ngsi-ld:SparkplugMetric:ProductionCount-PLC01"
+        ]
+      },
+      "belongsToNode": {
+        "type": "Relationship",
+        "object": "urn:ngsi-ld:SparkplugNode:Factory1-EdgeGateway01"
+      }
+    },
+    {
+      "id": "urn:ngsi-ld:SparkplugDevice:PLC02",
+      "type": "SparkplugDevice",
+      "name": {
+        "type": "Property",
+        "value": "PLC ABB AC500 - Linka 2"
+      },
+      "deviceId": {
+        "type": "Property",
+        "value": "PLC02"
+      },
+      "description": {
+        "type": "Property",
+        "value": "Riadenie výrobnej linky 2 - balenie produktov"
+      },
+      "status": {
+        "type": "Property",
+        "value": "online"
+      },
+      "hasMetric": {
+        "type": "Relationship",
+        "object": [
+          "urn:ngsi-ld:SparkplugMetric:Temp-PLC02-CPU",
+          "urn:ngsi-ld:SparkplugMetric:ConveyorSpeed-PLC02"
+        ]
+      },
+      "belongsToNode": {
+        "type": "Relationship",
+        "object": "urn:ngsi-ld:SparkplugNode:Factory1-EdgeGateway01"
+      }
+    },
+    {
+      "id": "urn:ngsi-ld:SparkplugMetric:Temp-PLC01-CPU",
+      "type": "SparkplugMetric",
+      "name": {
+        "type": "Property",
+        "value": "CPU_Temperature"
+      },
+      "value": {
+        "type": "Property",
+        "value": 52.3,
+        "observedAt": "2025-10-20T14:30:00Z"
+      },
+      "dataType": {
+        "type": "Property",
+        "value": "Float"
+      },
+      "unitCode": {
+        "type": "Property",
+        "value": "http://qudt.org/vocab/unit/DEG_C"
+      },
+      "quantityKind": {
+        "type": "Property",
+        "value": "http://qudt.org/vocab/quantitykind/Temperature"
+      },
+      "description": {
+        "type": "Property",
+        "value": "Teplota CPU modulu PLC"
+      },
+      "quality": {
+        "type": "Property",
+        "value": "good"
+      },
+      "alias": {
+        "type": "Property",
+        "value": 1
+      },
+      "belongsToDevice": {
+        "type": "Relationship",
+        "object": "urn:ngsi-ld:SparkplugDevice:PLC01"
+      }
+    },
+    {
+      "id": "urn:ngsi-ld:SparkplugMetric:ProductionCount-PLC01",
+      "type": "SparkplugMetric",
+      "name": {
+        "type": "Property",
+        "value": "Production_Counter"
+      },
+      "value": {
+        "type": "Property",
+        "value": 15234,
+        "observedAt": "2025-10-20T14:30:00Z"
+      },
+      "dataType": {
+        "type": "Property",
+        "value": "UInt32"
+      },
+      "description": {
+        "type": "Property",
+        "value": "Počítadlo vyrobených kusov od začiatku zmeny"
+      },
+      "quality": {
+        "type": "Property",
+        "value": "good"
+      },
+      "alias": {
+        "type": "Property",
+        "value": 10
+      },
+      "belongsToDevice": {
+        "type": "Relationship",
+        "object": "urn:ngsi-ld:SparkplugDevice:PLC01"
+      }
+    },
+    {
+      "id": "urn:ngsi-ld:SparkplugMetric:Temp-PLC02-CPU",
+      "type": "SparkplugMetric",
+      "name": {
+        "type": "Property",
+        "value": "CPU_Temperature"
+      },
+      "value": {
+        "type": "Property",
+        "value": 48.7,
+        "observedAt": "2025-10-20T14:30:00Z"
+      },
+      "dataType": {
+        "type": "Property",
+        "value": "Float"
+      },
+      "unitCode": {
+        "type": "Property",
+        "value": "http://qudt.org/vocab/unit/DEG_C"
+      },
+      "quantityKind": {
+        "type": "Property",
+        "value": "http://qudt.org/vocab/quantitykind/Temperature"
+      },
+      "quality": {
+        "type": "Property",
+        "value": "good"
+      },
+      "alias": {
+        "type": "Property",
+        "value": 1
+      },
+      "belongsToDevice": {
+        "type": "Relationship",
+        "object": "urn:ngsi-ld:SparkplugDevice:PLC02"
+      }
+    },
+    {
+      "id": "urn:ngsi-ld:SparkplugMetric:ConveyorSpeed-PLC02",
+      "type": "SparkplugMetric",
+      "name": {
+        "type": "Property",
+        "value": "Conveyor_Speed"
+      },
+      "value": {
+        "type": "Property",
+        "value": 1.5,
+        "observedAt": "2025-10-20T14:30:00Z"
+      },
+      "dataType": {
+        "type": "Property",
+        "value": "Float"
+      },
+      "unitCode": {
+        "type": "Property",
+        "value": "http://qudt.org/vocab/unit/M-PER-SEC"
+      },
+      "quantityKind": {
+        "type": "Property",
+        "value": "http://qudt.org/vocab/quantitykind/LinearVelocity"
+      },
+      "description": {
+        "type": "Property",
+        "value": "Rýchlosť dopravníkového pásu"
+      },
+      "quality": {
+        "type": "Property",
+        "value": "good"
+      },
+      "alias": {
+        "type": "Property",
+        "value": 5
+      },
+      "belongsToDevice": {
+        "type": "Relationship",
+        "object": "urn:ngsi-ld:SparkplugDevice:PLC02"
+      }
+    }
+  ]
+}

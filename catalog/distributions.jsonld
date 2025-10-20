@@ -1,0 +1,105 @@
+{
+  "@context": [
+    "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld",
+    {
+      "dcat": "http://www.w3.org/ns/dcat#",
+      "dct": "http://purl.org/dc/terms/",
+      "dvcs": "https://gitlab.presov.sk/vocab/dvcs/-/raw/main/context.jsonld#"
+    }
+  ],
+  "@graph": [
+    {
+      "id": "urn:ngsi-ld:Distribution:MetricNGSILD",
+      "type": "Distribution",
+      "title": {
+        "type": "Property",
+        "value": "NGSI-LD Data Model - Sparkplug Metric"
+      },
+      "description": {
+        "type": "Property",
+        "value": {
+          "sk": "NGSI-LD dátový model v JSON-LD formáte pre Sparkplug metriky.",
+          "en": "NGSI-LD data model in JSON-LD format for Sparkplug metrics."
+        }
+      },
+      "format": {
+        "type": "Property",
+        "value": "application/ld+json"
+      },
+      "mediaType": {
+        "type": "Property",
+        "value": "application/ld+json"
+      },
+      "accessURL": {
+        "type": "Property",
+        "value": "https://gitlab.presov.sk/vocab/dvcs/metric/-/raw/main/schemas/ngsi-ld/SparkplugMetric.jsonld"
+      },
+      "conformsTo": {
+        "type": "Property",
+        "value": "https://www.etsi.org/deliver/etsi_gs/CIM/001_099/009/01.08.01_60/gs_CIM009v010801p.pdf"
+      }
+    },
+    {
+      "id": "urn:ngsi-ld:Distribution:MetricJSONSchema",
+      "type": "Distribution",
+      "title": {
+        "type": "Property",
+        "value": "JSON Schema - Sparkplug Metric"
+      },
+      "description": {
+        "type": "Property",
+        "value": {
+          "sk": "JSON Schema validácia pre Sparkplug metriky.",
+          "en": "JSON Schema validation for Sparkplug metrics."
+        }
+      },
+      "format": {
+        "type": "Property",
+        "value": "application/schema+json"
+      },
+      "mediaType": {
+        "type": "Property",
+        "value": "application/schema+json"
+      },
+      "accessURL": {
+        "type": "Property",
+        "value": "https://gitlab.presov.sk/vocab/dvcs/metric/-/raw/main/schemas/json-schema/sparkplug-metric.schema.json"
+      },
+      "conformsTo": {
+        "type": "Property",
+        "value": "https://json-schema.org/draft/2020-12/schema"
+      }
+    },
+    {
+      "id": "urn:ngsi-ld:Distribution:MetricSHACL",
+      "type": "Distribution",
+      "title": {
+        "type": "Property",
+        "value": "SHACL Shapes - Sparkplug Metric"
+      },
+      "description": {
+        "type": "Property",
+        "value": {
+          "sk": "SHACL tvary (shapes) pre validáciu RDF reprezentácie Sparkplug metrík.",
+          "en": "SHACL shapes for validating RDF representation of Sparkplug metrics."
+        }
+      },
+      "format": {
+        "type": "Property",
+        "value": "text/turtle"
+      },
+      "mediaType": {
+        "type": "Property",
+        "value": "text/turtle"
+      },
+      "accessURL": {
+        "type": "Property",
+        "value": "https://gitlab.presov.sk/vocab/dvcs/metric/-/raw/main/schemas/shacl/sparkplug-metric-shapes.ttl"
+      },
+      "conformsTo": {
+        "type": "Property",
+        "value": "https://www.w3.org/TR/shacl/"
+      }
+    }
+  ]
+}

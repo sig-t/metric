@@ -1,0 +1,130 @@
+{
+  "@context": [
+    "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld",
+    {
+      "schema": "https://schema.org/",
+      "dvcs": "https://gitlab.presov.sk/vocab/dvcs/-/raw/main/context.jsonld#",
+      "SparkplugNode": "dvcs:SparkplugNode",
+      "name": "schema:name",
+      "description": "schema:description",
+      "nodeId": "schema:identifier",
+      "groupId": "dvcs:groupId",
+      "status": "dvcs:status",
+      "hasDevice": {
+        "@id": "dvcs:hasDevice",
+        "@type": "@id"
+      }
+    }
+  ],
+  "id": "urn:ngsi-ld:DataModel:SparkplugNode",
+  "type": "DataModel",
+  "name": {
+    "type": "Property",
+    "value": "SparkplugNode"
+  },
+  "description": {
+    "type": "Property",
+    "value": {
+      "sk": "NGSI-LD dátový model pre Sparkplug uzol (Edge Node). Reprezentuje MQTT klienta, ktorý agreguje jedno alebo viac zariadení.",
+      "en": "NGSI-LD data model for Sparkplug Node (Edge Node). Represents an MQTT client that aggregates one or more devices."
+    }
+  },
+  "modelSchema": {
+    "type": "Property",
+    "value": {
+      "@type": "StructuredValue",
+      "properties": {
+        "id": {
+          "description": {
+            "sk": "Jedinečný identifikátor uzla",
+            "en": "Unique identifier of the node"
+          },
+          "type": "string",
+          "format": "uri",
+          "required": true,
+          "example": "urn:ngsi-ld:SparkplugNode:EdgeNode01"
+        },
+        "type": {
+          "description": {
+            "sk": "Typ entity, vždy 'SparkplugNode'",
+            "en": "Entity type, always 'SparkplugNode'"
+          },
+          "type": "string",
+          "const": "SparkplugNode",
+          "required": true
+        },
+        "name": {
+          "description": {
+            "sk": "Názov uzla",
+            "en": "Node name"
+          },
+          "type": "Property",
+          "valueType": "string",
+          "required": true,
+          "example": "Edge Gateway - Hala A"
+        },
+        "nodeId": {
+          "description": {
+            "sk": "ID uzla v rámci Sparkplug topológie",
+            "en": "Node ID within Sparkplug topology"
+          },
+          "type": "Property",
+          "valueType": "string",
+          "required": true,
+          "example": "EdgeNode01"
+        },
+        "groupId": {
+          "description": {
+            "sk": "Group ID v Sparkplug namespace (napr. 'Factory1', 'Building2')",
+            "en": "Group ID in Sparkplug namespace (e.g. 'Factory1', 'Building2')"
+          },
+          "type": "Property",
+          "valueType": "string",
+          "required": true,
+          "example": "Factory1"
+        },
+        "description": {
+          "description": {
+            "sk": "Popis uzla",
+            "en": "Node description"
+          },
+          "type": "Property",
+          "valueType": "string",
+          "required": false,
+          "example": "Edge gateway pre zber dát z PLC v hale A"
+        },
+        "status": {
+          "description": {
+            "sk": "Stav uzla (online, offline, error)",
+            "en": "Node status (online, offline, error)"
+          },
+          "type": "Property",
+          "valueType": "string",
+          "enum": ["online", "offline", "error"],
+          "required": false,
+          "example": "online"
+        },
+        "hasDevice": {
+          "description": {
+            "sk": "Zoznam zariadení pripojených k tomuto uzlu",
+            "en": "List of devices connected to this node"
+          },
+          "type": "Relationship",
+          "objectType": "SparkplugDevice",
+          "isArray": true,
+          "required": false,
+          "example": [
+            "urn:ngsi-ld:SparkplugDevice:PLC01",
+            "urn:ngsi-ld:SparkplugDevice:PLC02"
+          ]
+        }
+      }
+    }
+  },
+  "conformsTo": {
+    "type": "Property",
+    "value": [
+      "https://sparkplug.eclipse.org/specification/version/3.0/"
+    ]
+  }
+}

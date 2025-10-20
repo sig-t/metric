@@ -1,0 +1,80 @@
+{
+  "@context": [
+    "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld",
+    {
+      "dcat": "http://www.w3.org/ns/dcat#",
+      "dct": "http://purl.org/dc/terms/",
+      "foaf": "http://xmlns.com/foaf/0.1/",
+      "vcard": "http://www.w3.org/2006/vcard/ns#",
+      "schema": "https://schema.org/",
+      "dvcs": "https://gitlab.presov.sk/vocab/dvcs/-/raw/main/context.jsonld#"
+    }
+  ],
+  "id": "urn:ngsi-ld:Catalog:SparkplugMetricsCatalog",
+  "type": "Catalog",
+  "title": {
+    "type": "Property",
+    "value": {
+      "sk": "Katalóg Sparkplug Metrík",
+      "en": "Sparkplug Metrics Catalog"
+    }
+  },
+  "description": {
+    "type": "Property",
+    "value": {
+      "sk": "Komplexný katalóg dátových modelov, schém a validácií pre Sparkplug 3.0 metriky s NGSI-LD podporou.",
+      "en": "Comprehensive catalog of data models, schemas and validations for Sparkplug 3.0 metrics with NGSI-LD support."
+    }
+  },
+  "publisher": {
+    "type": "Property",
+    "value": {
+      "type": "Organization",
+      "name": "DVCS - Prešov"
+    }
+  },
+  "issued": {
+    "type": "Property",
+    "value": {
+      "@type": "DateTime",
+      "@value": "2025-10-20T00:00:00Z"
+    }
+  },
+  "modified": {
+    "type": "Property",
+    "value": {
+      "@type": "DateTime",
+      "@value": "2025-10-20T00:00:00Z"
+    }
+  },
+  "language": {
+    "type": "Property",
+    "value": ["sk", "en"]
+  },
+  "dataset": {
+    "type": "Relationship",
+    "object": [
+      "urn:ngsi-ld:Dataset:SparkplugMetricModel",
+      "urn:ngsi-ld:Dataset:SparkplugDeviceModel",
+      "urn:ngsi-ld:Dataset:SparkplugNodeModel"
+    ]
+  },
+  "themeTaxonomy": {
+    "type": "Property",
+    "value": [
+      "IoT",
+      "Industrial Automation",
+      "MQTT",
+      "Sparkplug B",
+      "Smart Manufacturing"
+    ]
+  },
+  "license": {
+    "type": "Property",
+    "value": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "homepage": {
+    "type": "Property",
+    "value": "https://gitlab.presov.sk/vocab/dvcs/metric"
+  }
+}
