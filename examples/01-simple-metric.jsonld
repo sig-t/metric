@@ -1,0 +1,45 @@
+{
+  "@context": [
+    "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld",
+    "https://gitlab.presov.sk/vocab/dvcs/metric/-/raw/main/metric-context.jsonld"
+  ],
+  "id": "urn:ngsi-ld:SparkplugMetric:Temperature:Sensor01",
+  "type": "SparkplugMetric",
+  "name": {
+    "type": "Property",
+    "value": "Temperature"
+  },
+  "value": {
+    "type": "Property",
+    "value": 23.5,
+    "observedAt": "2025-10-20T14:30:00Z"
+  },
+  "dataType": {
+    "type": "Property",
+    "value": "Float"
+  },
+  "unitCode": {
+    "type": "Property",
+    "value": "http://qudt.org/vocab/unit/DEG_C"
+  },
+  "quantityKind": {
+    "type": "Property",
+    "value": "http://qudt.org/vocab/quantitykind/Temperature"
+  },
+  "description": {
+    "type": "Property",
+    "value": "Teplota okolia meraná senzorom DS18B20"
+  },
+  "quality": {
+    "type": "Property",
+    "value": "good"
+  },
+  "isHistorical": {
+    "type": "Property",
+    "value": false
+  },
+  "alias": {
+    "type": "Property",
+    "value": 1
+  }
+}

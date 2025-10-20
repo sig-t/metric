@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://gitlab.presov.sk/vocab/dvcs/metric/-/raw/main/schemas/json-schema/sparkplug-device.schema.json",
+  "title": "SparkplugDevice",
+  "description": "JSON Schema pre validáciu Sparkplug zariadenia v NGSI-LD formáte",
+  "type": "object",
+  "required": ["id", "type", "name", "deviceId"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^urn:ngsi-ld:SparkplugDevice:[A-Za-z0-9_-]+$",
+      "description": "Jedinečný identifikátor zariadenia"
+    },
+    "type": {
+      "type": "string",
+      "const": "SparkplugDevice"
+    },
+    "@context": {
+      "oneOf": [
+        {"type": "string", "format": "uri"},
+        {"type": "array"},
+        {"type": "object"}
+      ]
+    },
+    "name": {
+      "type": "object",
+      "required": ["type", "value"],
+      "properties": {
+        "type": {"const": "Property"},
+        "value": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        }
+      }
+    },
+    "deviceId": {
+      "type": "object",
+      "required": ["type", "value"],
+      "properties": {
+        "type": {"const": "Property"},
+        "value": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "description": "Sparkplug Device ID"
+        }
+      }
+    },
+    "description": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "Property"},
+        "value": {
+          "type": "string",
+          "maxLength": 1000
+        }
+      }
+    },
+    "status": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "Property"},
+        "value": {
+          "type": "string",
+          "enum": ["online", "offline", "error"]
+        }
+      }
+    },
+    "hasMetric": {
+      "type": "object",
+      "required": ["type", "object"],
+      "properties": {
+        "type": {"const": "Relationship"},
+        "object": {
+          "oneOf": [
+            {
+              "type": "string",
+              "format": "uri",
+              "pattern": "^urn:ngsi-ld:SparkplugMetric:[A-Za-z0-9_-]+$"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uri",
+                "pattern": "^urn:ngsi-ld:SparkplugMetric:[A-Za-z0-9_-]+$"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "belongsToNode": {
+      "type": "object",
+      "required": ["type", "object"],
+      "properties": {
+        "type": {"const": "Relationship"},
+        "object": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^urn:ngsi-ld:SparkplugNode:[A-Za-z0-9_-]+$"
+        }
+      }
+    }
+  }
+}

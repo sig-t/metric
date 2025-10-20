@@ -1,0 +1,133 @@
+{
+  "@context": [
+    "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld",
+    {
+      "schema": "https://schema.org/",
+      "dvcs": "https://gitlab.presov.sk/vocab/dvcs/-/raw/main/context.jsonld#",
+      "SparkplugDevice": "dvcs:SparkplugDevice",
+      "name": "schema:name",
+      "description": "schema:description",
+      "deviceId": "schema:identifier",
+      "status": "dvcs:status",
+      "hasMetric": {
+        "@id": "dvcs:hasMetric",
+        "@type": "@id"
+      },
+      "belongsToNode": {
+        "@id": "dvcs:belongsToNode",
+        "@type": "@id"
+      }
+    }
+  ],
+  "id": "urn:ngsi-ld:DataModel:SparkplugDevice",
+  "type": "DataModel",
+  "name": {
+    "type": "Property",
+    "value": "SparkplugDevice"
+  },
+  "description": {
+    "type": "Property",
+    "value": {
+      "sk": "NGSI-LD dátový model pre Sparkplug zariadenie (Device). Reprezentuje fyzické alebo logické zariadenie, ktoré publikuje metriky.",
+      "en": "NGSI-LD data model for Sparkplug Device. Represents a physical or logical device that publishes metrics."
+    }
+  },
+  "modelSchema": {
+    "type": "Property",
+    "value": {
+      "@type": "StructuredValue",
+      "properties": {
+        "id": {
+          "description": {
+            "sk": "Jedinečný identifikátor zariadenia",
+            "en": "Unique identifier of the device"
+          },
+          "type": "string",
+          "format": "uri",
+          "required": true,
+          "example": "urn:ngsi-ld:SparkplugDevice:PLC01"
+        },
+        "type": {
+          "description": {
+            "sk": "Typ entity, vždy 'SparkplugDevice'",
+            "en": "Entity type, always 'SparkplugDevice'"
+          },
+          "type": "string",
+          "const": "SparkplugDevice",
+          "required": true
+        },
+        "name": {
+          "description": {
+            "sk": "Názov zariadenia",
+            "en": "Device name"
+          },
+          "type": "Property",
+          "valueType": "string",
+          "required": true,
+          "example": "PLC Siemens S7-1200"
+        },
+        "deviceId": {
+          "description": {
+            "sk": "ID zariadenia v rámci Sparkplug topológie",
+            "en": "Device ID within Sparkplug topology"
+          },
+          "type": "Property",
+          "valueType": "string",
+          "required": true,
+          "example": "PLC01"
+        },
+        "description": {
+          "description": {
+            "sk": "Popis zariadenia",
+            "en": "Device description"
+          },
+          "type": "Property",
+          "valueType": "string",
+          "required": false,
+          "example": "Programovateľný logický automat pre riadenie linky 1"
+        },
+        "status": {
+          "description": {
+            "sk": "Stav zariadenia (online, offline, error)",
+            "en": "Device status (online, offline, error)"
+          },
+          "type": "Property",
+          "valueType": "string",
+          "enum": ["online", "offline", "error"],
+          "required": false,
+          "example": "online"
+        },
+        "hasMetric": {
+          "description": {
+            "sk": "Zoznam metrík, ktoré zariadenie publikuje",
+            "en": "List of metrics published by the device"
+          },
+          "type": "Relationship",
+          "objectType": "SparkplugMetric",
+          "isArray": true,
+          "required": false,
+          "example": [
+            "urn:ngsi-ld:SparkplugMetric:Temperature:PLC01",
+            "urn:ngsi-ld:SparkplugMetric:Pressure:PLC01"
+          ]
+        },
+        "belongsToNode": {
+          "description": {
+            "sk": "Uzol (Node), ku ktorému zariadenie patrí",
+            "en": "Node to which the device belongs"
+          },
+          "type": "Relationship",
+          "objectType": "SparkplugNode",
+          "required": false,
+          "example": "urn:ngsi-ld:SparkplugNode:EdgeNode01"
+        }
+      }
+    }
+  },
+  "conformsTo": {
+    "type": "Property",
+    "value": [
+      "https://sparkplug.eclipse.org/specification/version/3.0/"
+    ]
+  }
+}

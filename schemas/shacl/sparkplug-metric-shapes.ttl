@@ -1,0 +1,252 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <https://schema.org/> .
+@prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix dvcs: <https://gitlab.presov.sk/vocab/dvcs/-/raw/main/context.jsonld#> .
+
+# Shape pre SparkplugMetric
+dvcs:SparkplugMetricShape
+    a sh:NodeShape ;
+    sh:targetClass dvcs:SparkplugMetric ;
+
+    # Názov metriky - povinný
+    sh:property [
+        sh:path schema:name ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:minLength 1 ;
+        sh:maxLength 256 ;
+        sh:name "Názov metriky"@sk, "Metric name"@en ;
+        sh:description "Sparkplug názov metriky (napr. Temperature, Pressure)"@sk ;
+    ] ;
+
+    # Hodnota - povinná
+    sh:property [
+        sh:path qudt:numericValue ;
+        sh:datatype xsd:decimal ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "Hodnota"@sk, "Value"@en ;
+        sh:description "Numerická hodnota metriky"@sk ;
+    ] ;
+
+    # Dátový typ - povinný
+    sh:property [
+        sh:path dvcs:sparkplugDataType ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:in ( "Float" "Double" "Int8" "Int16" "Int32" "Int64"
+                "UInt8" "UInt16" "UInt32" "UInt64" "Boolean"
+                "String" "DateTime" "Text" ) ;
+        sh:name "Dátový typ"@sk, "Data type"@en ;
+        sh:description "Sparkplug 3.0 dátový typ"@sk ;
+    ] ;
+
+    # Jednotka - voliteľná
+    sh:property [
+        sh:path qudt:unit ;
+        sh:nodeKind sh:IRI ;
+        sh:maxCount 1 ;
+        sh:name "Jednotka"@sk, "Unit"@en ;
+        sh:description "QUDT jednotka merania"@sk ;
+    ] ;
+
+    # Druh veličiny - voliteľný
+    sh:property [
+        sh:path qudt:hasQuantityKind ;
+        sh:nodeKind sh:IRI ;
+        sh:maxCount 1 ;
+        sh:name "Druh veličiny"@sk, "Quantity kind"@en ;
+        sh:description "QUDT druh fyzikálnej veličiny"@sk ;
+    ] ;
+
+    # Popis - voliteľný
+    sh:property [
+        sh:path schema:description ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:maxLength 1000 ;
+        sh:name "Popis"@sk, "Description"@en ;
+    ] ;
+
+    # Časová značka - voliteľná
+    sh:property [
+        sh:path schema:dateModified ;
+        sh:datatype xsd:dateTime ;
+        sh:maxCount 1 ;
+        sh:name "Časová značka"@sk, "Timestamp"@en ;
+    ] ;
+
+    # Kvalita - voliteľná
+    sh:property [
+        sh:path dvcs:quality ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:in ( "good" "bad" "uncertain" ) ;
+        sh:name "Kvalita"@sk, "Quality"@en ;
+    ] ;
+
+    # Historické dáta - voliteľné
+    sh:property [
+        sh:path dvcs:isHistorical ;
+        sh:datatype xsd:boolean ;
+        sh:maxCount 1 ;
+        sh:name "Je historické"@sk, "Is historical"@en ;
+    ] ;
+
+    # Alias - voliteľný
+    sh:property [
+        sh:path dvcs:alias ;
+        sh:datatype xsd:integer ;
+        sh:maxCount 1 ;
+        sh:minInclusive 0 ;
+        sh:name "Alias"@sk, "Alias"@en ;
+        sh:description "Sparkplug číselný alias metriky"@sk ;
+    ] ;
+
+    # Vzťah k zariadeniu - voliteľný
+    sh:property [
+        sh:path dvcs:belongsToDevice ;
+        sh:class dvcs:SparkplugDevice ;
+        sh:nodeKind sh:IRI ;
+        sh:maxCount 1 ;
+        sh:name "Patrí zariadeniu"@sk, "Belongs to device"@en ;
+    ] ;
+
+    sh:closed false ;
+    sh:name "Sparkplug Metrika"@sk, "Sparkplug Metric"@en ;
+    sh:description "SHACL shape pre validáciu Sparkplug 3.0 metriky"@sk .
+
+# Shape pre SparkplugDevice
+dvcs:SparkplugDeviceShape
+    a sh:NodeShape ;
+    sh:targetClass dvcs:SparkplugDevice ;
+
+    # Názov zariadenia - povinný
+    sh:property [
+        sh:path schema:name ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:minLength 1 ;
+        sh:maxLength 256 ;
+        sh:name "Názov zariadenia"@sk, "Device name"@en ;
+    ] ;
+
+    # ID zariadenia - povinný
+    sh:property [
+        sh:path schema:identifier ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:minLength 1 ;
+        sh:maxLength 128 ;
+        sh:name "ID zariadenia"@sk, "Device ID"@en ;
+    ] ;
+
+    # Popis - voliteľný
+    sh:property [
+        sh:path schema:description ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:maxLength 1000 ;
+    ] ;
+
+    # Stav - voliteľný
+    sh:property [
+        sh:path dvcs:status ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:in ( "online" "offline" "error" ) ;
+        sh:name "Stav"@sk, "Status"@en ;
+    ] ;
+
+    # Metriky - voliteľné
+    sh:property [
+        sh:path dvcs:hasMetric ;
+        sh:class dvcs:SparkplugMetric ;
+        sh:nodeKind sh:IRI ;
+        sh:name "Má metriky"@sk, "Has metrics"@en ;
+    ] ;
+
+    # Uzol - voliteľný
+    sh:property [
+        sh:path dvcs:belongsToNode ;
+        sh:class dvcs:SparkplugNode ;
+        sh:nodeKind sh:IRI ;
+        sh:maxCount 1 ;
+        sh:name "Patrí uzlu"@sk, "Belongs to node"@en ;
+    ] ;
+
+    sh:closed false ;
+    sh:name "Sparkplug Zariadenie"@sk, "Sparkplug Device"@en .
+
+# Shape pre SparkplugNode
+dvcs:SparkplugNodeShape
+    a sh:NodeShape ;
+    sh:targetClass dvcs:SparkplugNode ;
+
+    # Názov uzla - povinný
+    sh:property [
+        sh:path schema:name ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:minLength 1 ;
+        sh:maxLength 256 ;
+        sh:name "Názov uzla"@sk, "Node name"@en ;
+    ] ;
+
+    # ID uzla - povinný
+    sh:property [
+        sh:path dvcs:nodeId ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:minLength 1 ;
+        sh:maxLength 128 ;
+        sh:name "ID uzla"@sk, "Node ID"@en ;
+    ] ;
+
+    # Group ID - povinný
+    sh:property [
+        sh:path dvcs:groupId ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:minLength 1 ;
+        sh:maxLength 128 ;
+        sh:name "Group ID"@sk, "Group ID"@en ;
+    ] ;
+
+    # Popis - voliteľný
+    sh:property [
+        sh:path schema:description ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:maxLength 1000 ;
+    ] ;
+
+    # Stav - voliteľný
+    sh:property [
+        sh:path dvcs:status ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:in ( "online" "offline" "error" ) ;
+        sh:name "Stav"@sk, "Status"@en ;
+    ] ;
+
+    # Zariadenia - voliteľné
+    sh:property [
+        sh:path dvcs:hasDevice ;
+        sh:class dvcs:SparkplugDevice ;
+        sh:nodeKind sh:IRI ;
+        sh:name "Má zariadenia"@sk, "Has devices"@en ;
+    ] ;
+
+    sh:closed false ;
+    sh:name "Sparkplug Uzol"@sk, "Sparkplug Node"@en .

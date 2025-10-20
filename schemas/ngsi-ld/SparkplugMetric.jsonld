@@ -1,0 +1,197 @@
+{
+  "@context": [
+    "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld",
+    {
+      "schema": "https://schema.org/",
+      "qudt": "http://qudt.org/schema/qudt/",
+      "unit": "http://qudt.org/vocab/unit/",
+      "quantitykind": "http://qudt.org/vocab/quantitykind/",
+      "dvcs": "https://gitlab.presov.sk/vocab/dvcs/-/raw/main/context.jsonld#",
+      "SparkplugMetric": "dvcs:SparkplugMetric",
+      "name": {
+        "@id": "schema:name",
+        "@type": "schema:Text"
+      },
+      "value": "qudt:numericValue",
+      "dataType": "dvcs:sparkplugDataType",
+      "unitCode": {
+        "@id": "qudt:unit",
+        "@type": "@id"
+      },
+      "quantityKind": {
+        "@id": "qudt:hasQuantityKind",
+        "@type": "@id"
+      },
+      "description": "schema:description",
+      "timestamp": "schema:dateModified",
+      "quality": "dvcs:quality",
+      "isHistorical": "dvcs:isHistorical",
+      "alias": "dvcs:alias",
+      "belongsToDevice": {
+        "@id": "dvcs:belongsToDevice",
+        "@type": "@id"
+      }
+    }
+  ],
+  "id": "urn:ngsi-ld:DataModel:SparkplugMetric",
+  "type": "DataModel",
+  "name": {
+    "type": "Property",
+    "value": "SparkplugMetric"
+  },
+  "description": {
+    "type": "Property",
+    "value": {
+      "sk": "NGSI-LD dátový model pre Sparkplug 3.0 metriky. Reprezentuje jednotlivú telemetrickú metriku s hodnotou, jednotkou, dátovým typom a metadátami podľa Sparkplug B špecifikácie.",
+      "en": "NGSI-LD data model for Sparkplug 3.0 metrics. Represents a single telemetric metric with value, unit, data type and metadata according to Sparkplug B specification."
+    }
+  },
+  "modelSchema": {
+    "type": "Property",
+    "value": {
+      "@type": "StructuredValue",
+      "properties": {
+        "id": {
+          "description": {
+            "sk": "Jedinečný identifikátor metriky v URI formáte",
+            "en": "Unique identifier of the metric in URI format"
+          },
+          "type": "string",
+          "format": "uri",
+          "required": true,
+          "example": "urn:ngsi-ld:SparkplugMetric:Temperature:Sensor01"
+        },
+        "type": {
+          "description": {
+            "sk": "Typ entity, vždy 'SparkplugMetric'",
+            "en": "Entity type, always 'SparkplugMetric'"
+          },
+          "type": "string",
+          "const": "SparkplugMetric",
+          "required": true
+        },
+        "name": {
+          "description": {
+            "sk": "Názov metriky podľa Sparkplug (napr. 'Temperature', 'Pressure')",
+            "en": "Metric name according to Sparkplug (e.g. 'Temperature', 'Pressure')"
+          },
+          "type": "Property",
+          "valueType": "string",
+          "required": true,
+          "example": "Temperature"
+        },
+        "value": {
+          "description": {
+            "sk": "Numerická hodnota metriky",
+            "en": "Numeric value of the metric"
+          },
+          "type": "Property",
+          "valueType": "number",
+          "required": true,
+          "example": 23.5
+        },
+        "dataType": {
+          "description": {
+            "sk": "Sparkplug dátový typ (Float, Double, Int8, Int16, Int32, Int64, UInt8, UInt16, UInt32, UInt64, Boolean, String, DateTime, Text)",
+            "en": "Sparkplug data type (Float, Double, Int8, Int16, Int32, Int64, UInt8, UInt16, UInt32, UInt64, Boolean, String, DateTime, Text)"
+          },
+          "type": "Property",
+          "valueType": "string",
+          "enum": ["Float", "Double", "Int8", "Int16", "Int32", "Int64", "UInt8", "UInt16", "UInt32", "UInt64", "Boolean", "String", "DateTime", "Text"],
+          "required": true,
+          "example": "Float"
+        },
+        "unitCode": {
+          "description": {
+            "sk": "Merná jednotka z QUDT ontológie (napr. unit:DEG_C pre °C)",
+            "en": "Unit of measurement from QUDT ontology (e.g. unit:DEG_C for °C)"
+          },
+          "type": "Property",
+          "valueType": "string",
+          "format": "uri",
+          "required": false,
+          "example": "http://qudt.org/vocab/unit/DEG_C"
+        },
+        "quantityKind": {
+          "description": {
+            "sk": "Druh veličiny z QUDT (napr. quantitykind:Temperature)",
+            "en": "Quantity kind from QUDT (e.g. quantitykind:Temperature)"
+          },
+          "type": "Property",
+          "valueType": "string",
+          "format": "uri",
+          "required": false,
+          "example": "http://qudt.org/vocab/quantitykind/Temperature"
+        },
+        "timestamp": {
+          "description": {
+            "sk": "Časová značka merania v ISO 8601 formáte",
+            "en": "Timestamp of measurement in ISO 8601 format"
+          },
+          "type": "Property",
+          "valueType": "DateTime",
+          "required": false,
+          "example": "2025-10-20T14:30:00Z"
+        },
+        "quality": {
+          "description": {
+            "sk": "Kvalita dát (good, bad, uncertain)",
+            "en": "Data quality (good, bad, uncertain)"
+          },
+          "type": "Property",
+          "valueType": "string",
+          "enum": ["good", "bad", "uncertain"],
+          "required": false,
+          "example": "good"
+        },
+        "isHistorical": {
+          "description": {
+            "sk": "Príznak, či ide o historické dáta",
+            "en": "Flag indicating if this is historical data"
+          },
+          "type": "Property",
+          "valueType": "boolean",
+          "required": false,
+          "default": false
+        },
+        "alias": {
+          "description": {
+            "sk": "Alias metriky pre Sparkplug (číselný identifikátor)",
+            "en": "Metric alias for Sparkplug (numeric identifier)"
+          },
+          "type": "Property",
+          "valueType": "integer",
+          "required": false,
+          "example": 1
+        },
+        "description": {
+          "description": {
+            "sk": "Ľudsky čitateľný popis metriky",
+            "en": "Human-readable description of the metric"
+          },
+          "type": "Property",
+          "valueType": "string",
+          "required": false,
+          "example": "Teplota okolia meraná senzorom DS18B20"
+        },
+        "belongsToDevice": {
+          "description": {
+            "sk": "Vzťah k zariadeniu, ktorému metrika patrí",
+            "en": "Relationship to the device this metric belongs to"
+          },
+          "type": "Relationship",
+          "objectType": "SparkplugDevice",
+          "required": false,
+          "example": "urn:ngsi-ld:SparkplugDevice:Device01"
+        }
+      }
+    }
+  },
+  "conformsTo": {
+    "type": "Property",
+    "value": [
+      "https://sparkplug.eclipse.org/specification/version/3.0/",
+      "https://www.etsi.org/deliver/etsi_gs/CIM/001_099/009/01.08.01_60/gs_CIM009v010801p.pdf"
+    ]
+  }
+}

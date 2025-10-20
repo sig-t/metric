@@ -1,0 +1,99 @@
+{
+  "@context": [
+    "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld",
+    {
+      "dcat": "http://www.w3.org/ns/dcat#",
+      "dct": "http://purl.org/dc/terms/",
+      "dvcs": "https://gitlab.presov.sk/vocab/dvcs/-/raw/main/context.jsonld#"
+    }
+  ],
+  "@graph": [
+    {
+      "id": "urn:ngsi-ld:Dataset:SparkplugMetricModel",
+      "type": "Dataset",
+      "title": {
+        "type": "Property",
+        "value": {
+          "sk": "Model Sparkplug Metriky",
+          "en": "Sparkplug Metric Model"
+        }
+      },
+      "description": {
+        "type": "Property",
+        "value": {
+          "sk": "Dátový model pre reprezentáciu Sparkplug 3.0 metrík ako NGSI-LD entít. Zahŕňa numerické hodnoty, jednotky, dátové typy a časové značky.",
+          "en": "Data model for representing Sparkplug 3.0 metrics as NGSI-LD entities. Includes numeric values, units, data types and timestamps."
+        }
+      },
+      "keyword": {
+        "type": "Property",
+        "value": ["metric", "sparkplug", "measurement", "sensor", "telemetry"]
+      },
+      "conformsTo": {
+        "type": "Property",
+        "value": [
+          "https://sparkplug.eclipse.org/specification/version/3.0/",
+          "https://www.etsi.org/deliver/etsi_gs/CIM/001_099/009/01.08.01_60/gs_CIM009v010801p.pdf"
+        ]
+      },
+      "distribution": {
+        "type": "Relationship",
+        "object": [
+          "urn:ngsi-ld:Distribution:MetricNGSILD",
+          "urn:ngsi-ld:Distribution:MetricJSONSchema",
+          "urn:ngsi-ld:Distribution:MetricSHACL"
+        ]
+      }
+    },
+    {
+      "id": "urn:ngsi-ld:Dataset:SparkplugDeviceModel",
+      "type": "Dataset",
+      "title": {
+        "type": "Property",
+        "value": {
+          "sk": "Model Sparkplug Zariadenia",
+          "en": "Sparkplug Device Model"
+        }
+      },
+      "description": {
+        "type": "Property",
+        "value": {
+          "sk": "Dátový model pre Sparkplug zariadenia (Device), ktoré obsahujú kolekciu metrík.",
+          "en": "Data model for Sparkplug devices that contain a collection of metrics."
+        }
+      },
+      "keyword": {
+        "type": "Property",
+        "value": ["device", "sparkplug", "IoT device", "edge device"]
+      },
+      "conformsTo": {
+        "type": "Property",
+        "value": [
+          "https://sparkplug.eclipse.org/specification/version/3.0/"
+        ]
+      }
+    },
+    {
+      "id": "urn:ngsi-ld:Dataset:SparkplugNodeModel",
+      "type": "Dataset",
+      "title": {
+        "type": "Property",
+        "value": {
+          "sk": "Model Sparkplug Uzla",
+          "en": "Sparkplug Node Model"
+        }
+      },
+      "description": {
+        "type": "Property",
+        "value": {
+          "sk": "Dátový model pre Sparkplug uzly (Edge Node), ktoré agregujú zariadenia.",
+          "en": "Data model for Sparkplug nodes (Edge Node) that aggregate devices."
+        }
+      },
+      "keyword": {
+        "type": "Property",
+        "value": ["node", "edge node", "gateway", "sparkplug"]
+      }
+    }
+  ]
+}
